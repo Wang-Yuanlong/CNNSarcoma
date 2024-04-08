@@ -4,15 +4,30 @@ from model.ResNet import PSOCT_module
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 from PIL import Image
+import argparse
+
 
 default_transform = transforms.Compose([
             transforms.ToTensor()
 ])
 
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-model = PSOCT_module(mode='channel_merge').to(device)
-model.load_state_dict(torch.load('./saved_model/best_model_psoct_channel_merge_aug.pth', map_location=device))
+parser = argparse.ArgumentParser()
+parser.add_argument('-m', '--mode', help="image fusion mode", type=str, default='dup_backbone')
+parser.add_argument('-a', '--augmentation', help='use data augmentation method', action='store_true')
+parser.add_argument('-s', '--saved_model', help='model saving file', default='./saved_model/best_model_psoct_{}.pth')
+parser.add_argument('--keys', help='psoct measurements to use', default='dor')
+args = parser.parse_args()
+
+mode = args.mode
+if args.augmentation:
+    saved_model = args.saved_model.format(mode + '_' + args.keys + '_aug')
+else:
+    saved_model = args.saved_model.format(mode + '_' + args.keys)
+
+model = PSOCT_module(mode=mode).to(device)
+model.load_state_dict(torch.load(saved_model, map_location=device))
 
 @torch.no_grad()
 def test_curve(model, device, test_img, step=5):

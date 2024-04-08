@@ -10,8 +10,6 @@ img_types = {"DOPU": "dopu", "Optic Axis":'optic', "Retardation":"retard", "Tota
 img_channels = {"DOPU": "L", "Optic Axis":'RGB', "Retardation":"RGB", "Total Intensity":"L"}
 meta_data = pd.read_csv(os.path.join(base, 'meta_ps_origin.csv'), dtype={'label':'int32'})
 meta_data['file_name'] = meta_data.apply(lambda x: x['img_name'].replace(' ', '') + '.png', axis=1)
-# meta_data['oct_path'] = meta_data.apply(lambda x: os.path.join(path, subfolder[x['label']], 'OCT', x['file_name']), axis=1)
-# meta_data['psoct_path'] = meta_data.apply(lambda x: os.path.join(path, subfolder[x['label']], 'PSOCT', x['file_name']), axis=1)
 for img_type, img_type_name in img_types.items():
     meta_data['{}_path'.format(img_type_name)] = meta_data.apply(lambda x: os.path.join(path, subfolder[x['label']], img_type, x['file_name']), axis=1)
 meta_data['patient'] = meta_data.apply(lambda x: (x['patient'].split(',')[0]), axis=1)
@@ -27,7 +25,6 @@ for i in range(len(meta_data)):
     size = img.size
     for k, v in img_group.items():
         assert v.size == size         
-    # width, height = oct_img.size
     width, height = img.size
     width, height = (width*436) // height, 436
     for k, v in img_group.items():
