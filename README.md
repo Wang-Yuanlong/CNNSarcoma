@@ -1,8 +1,8 @@
-# Deep learning-assisted canine soft tissue sarcoma surgical margin assessment based on polarization-sensitive optical coherence tomography
+# Deep Learning-assisted Surgical Margin Assessment for Canine Soft Tissue Sarcoma Based on Polarization-sensitive Optical Coherence Tomography
 
 This repository contains the official PyTorch implementation of the following paper:
 
-> **Deep learning-assisted canine soft tissue sarcoma surgical margin assessment based on polarization-sensitive optical coherence tomography**
+> **Deep Learning-assisted Surgical Margin Assessment for Canine Soft Tissue Sarcoma Based on Polarization-sensitive Optical Coherence Tomography**
 > 
 > Yuanlong Wang, Laura E. Selmic, Ping Zhang
 >
@@ -10,7 +10,7 @@ This repository contains the official PyTorch implementation of the following pa
 
 ## Framework
 
-We implement models with two fusion strategies to conduct margin assessment for PS-OCT images, namely duplicate backbone and channel merge. Our models are based on ResNet for image feature extractor. Their structures are shown in the figure below.
+We implement models with two fusion strategies to conduct margin assessment for PS-OCT images, namely duplicate backbone and channel merge. Our models are based on ResNet for image feature extractors. Their structures are shown in the figure below.
 
 ![](./assets/model.png)
 
